@@ -16,11 +16,11 @@ class CreateDictionaryTables extends Migration
         Schema::create('dictionary', function (Blueprint $table) {
             $table->increments('id');
             $table->string('kata');
-            $table->unsignedTinyInteger('kelas');
+            $table->string('kelas');
             $table->timestamps();
 
             $table->foreign('kelas')
-                ->references('id')
+                ->references('kelas')
                 ->on('klasifikasi')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');

@@ -3680,14 +3680,14 @@ class DictionarySeeder extends Seeder
         foreach ($positif as $pos) {
             Dictionary::create([
                 'kata'  =>  $pos,
-                'kelas' => 1
+                'kelas' => 'positif'
             ]);
         }
 
         foreach ($negatif as $neg) {
             Dictionary::create([
                 'kata'  =>  $neg,
-                'kelas' => 2
+                'kelas' => 'negatif'
             ]);
         }
     }

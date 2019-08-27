@@ -14,7 +14,6 @@ class CreateKlasifikasiTable extends Migration
     public function up()
     {
         Schema::create('klasifikasi', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id', true);
             $table->string('kelas')->unique();
             $table->float('nilai_probabilitas')->default(0);
         });
