@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Mining;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Mining\Dictionary;
+use App\Models\Mining\Klasifikasi;
+use App\Models\Mining\TypoFixer;
 
 class MiningController extends Controller
 {
@@ -13,14 +16,16 @@ class MiningController extends Controller
     private $kamus_kata = array();
     private $minimalPanjangToken = 1;
     private $maksimalPanjangToken = 15;
-    private $kelas_opini = array('positif', 'negatif');
+    private $kelas;
 	private $jumlahKelasToken = array('positif' => 0, 'negatif' => 0);
 	private $jumlahKelasDoc = array('positif' => 0, 'negatif' => 0);
     private $jumlahToken = 0;
     private $jumlahDoc = 0;
-    private $prior = array('positif' => 0.5, 'negatif' => 0.5);
+    private $klasifikasi;
 
     public function __construct() {
+        $this->kelas = Klasifikasi::orderBy('kelas', 'DESC')->pluck('kelas');
+        $this->klasifikasi = Klasifikasi::orderBy('kelas', 'DESC')->pluck('nilai_probabilitas', 'kelas');
         $this->loadKamus();
 
         $this->kataAbaikan = $this->loadList('ignore');
@@ -29,6 +34,9 @@ class MiningController extends Controller
 
     public function index()
     {
+        $kata_bersih = $this->_bersihKata('@lindamayasarii nanti kalo ada yg jd tumbal pagub cuman blg sudah nasipnya ');
+
+        return $this->tokenizeKata($kata_bersih);
         return $this->kategoriOpini($this->kalimat);
     }
 
@@ -45,7 +53,7 @@ class MiningController extends Controller
 		$total_nilai = 0;
         $nilai = array();
 
-		foreach ($this->kelas_opini as $kelas) {
+		foreach ($this->kelas as $kelas) {
 
 			$nilai[$kelas] = 1; //1
 
@@ -62,20 +70,20 @@ class MiningController extends Controller
                     $nilai[$kelas] *= ($count + 1);
 				}
 			}
-            $nilai[$kelas] = $this->prior[$kelas] * $nilai[$kelas];
+            $nilai[$kelas] = $this->klasifikasi[$kelas] * $nilai[$kelas];
         }
 
-		foreach ($this->kelas_opini as $kelas) {
+		foreach ($this->kelas as $kelas) {
             $total_nilai += $nilai[$kelas];
         }
 
-		foreach ($this->kelas_opini as $kelas) {
+		foreach ($this->kelas as $kelas) {
             $nilai[$kelas] = round($nilai[$kelas] / $total_nilai, 3);
         }
 
-        print_r($nilai);
+        // print_r($nilai);
 
-        exit();
+        // exit();
 
 		arsort($nilai);
 
@@ -83,9 +91,7 @@ class MiningController extends Controller
     }
 
     public function kategoriOpini($kalimat) {
-
 		$nilai = $this->score($kalimat);
-
         $klasifikasi = key($nilai);
 
 		return $klasifikasi;
@@ -93,44 +99,49 @@ class MiningController extends Controller
 
     public function tokenizeKata($string)
     {
-        $string = str_replace("\r\n", " ", $string);
+        $string = str_replace("\r\n", "", $string);
 		$string = $this->_bersihKata($string);
 		$string = strtolower($string);
         $matches = explode(" ", $string);
 
-		return $matches;
+        return $matches;
     }
 
     private function _bersihKata($string) {
 
-		$diac =
-				/* A */ chr(192) . chr(193) . chr(194) . chr(195) . chr(196) . chr(197) .
-				/* a */ chr(224) . chr(225) . chr(226) . chr(227) . chr(228) . chr(229) .
-				/* O */ chr(210) . chr(211) . chr(212) . chr(213) . chr(214) . chr(216) .
-				/* o */ chr(242) . chr(243) . chr(244) . chr(245) . chr(246) . chr(248) .
-				/* E */ chr(200) . chr(201) . chr(202) . chr(203) .
-				/* e */ chr(232) . chr(233) . chr(234) . chr(235) .
-				/* Cc */ chr(199) . chr(231) .
-				/* I */ chr(204) . chr(205) . chr(206) . chr(207) .
-				/* i */ chr(236) . chr(237) . chr(238) . chr(239) .
-				/* U */ chr(217) . chr(218) . chr(219) . chr(220) .
-				/* u */ chr(249) . chr(250) . chr(251) . chr(252) .
-				/* yNn */ chr(255) . chr(209) . chr(241);
+		// $diac =
+        //     /* A */ chr(192) . chr(193) . chr(194) . chr(195) . chr(196) . chr(197) .
+        //     /* a */ chr(224) . chr(225) . chr(226) . chr(227) . chr(228) . chr(229) .
+        //     /* O */ chr(210) . chr(211) . chr(212) . chr(213) . chr(214) . chr(216) .
+        //     /* o */ chr(242) . chr(243) . chr(244) . chr(245) . chr(246) . chr(248) .
+        //     /* E */ chr(200) . chr(201) . chr(202) . chr(203) .
+        //     /* e */ chr(232) . chr(233) . chr(234) . chr(235) .
+        //     /* Cc */ chr(199) . chr(231) .
+        //     /* I */ chr(204) . chr(205) . chr(206) . chr(207) .
+        //     /* i */ chr(236) . chr(237) . chr(238) . chr(239) .
+        //     /* U */ chr(217) . chr(218) . chr(219) . chr(220) .
+        //     /* u */ chr(249) . chr(250) . chr(251) . chr(252) .
+        //     /* yNn */ chr(255) . chr(209) . chr(241);
 
-		return strtolower(strtr($string, $diac, 'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn'));
+        // $string = strtr($string, $diac, 'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
+        $typos = TypoFixer::pluck('correction', 'typo');
+
+        $string = preg_replace('/@\w+[^a-zA-Z0-9]/', ' ', $string);
+        $string = preg_replace('/[\x00-\x1F\x7F-\xFF]/', ' ', $string);
+        $string = preg_replace('/(\w|\s|.)\\1+/', '$1', $string);
+
+        foreach ($typos as $typo => $correction) {
+            $string = str_replace($typo . ' ', $correction . ' ', $string);
+        }
+
+        $hasil = strtolower($string);
+		return $hasil;
     }
 
     private function loadKamus()
     {
-        foreach($this->kelas_opini as $kelas) {
-            $fileKamus = __DIR__ . "/data/data.{$kelas}.php";
-
-            if (file_exists($fileKamus)) {
-                $temp = file_get_contents($fileKamus);
-                $katas = unserialize($temp);
-            } else {
-                echo 'File does not exist: ' . $fileKamus;
-            }
+        foreach($this->kelas as $kelas) {
+            $katas = Dictionary::where('kelas', 'positif')->pluck('kata');
 
             foreach ($katas as $kata) {
 
