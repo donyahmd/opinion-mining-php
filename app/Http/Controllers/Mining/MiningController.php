@@ -10,7 +10,7 @@ use App\Models\Mining\TypoFixer;
 
 class MiningController extends Controller
 {
-    private $kalimat = 'Pak Isran pantas berhasil menjadi gubernur';
+    private $kalimat = 'Pak Isran pantas menjadi gubernur';
     private $kataAbaikan = array();
     private $kataNegatifPrefix = array();
     private $kamus_kata = array();
@@ -34,9 +34,6 @@ class MiningController extends Controller
 
     public function index()
     {
-        $kata_bersih = $this->_bersihKata('@lindamayasarii nanti kalo ada yg jd tumbal pagub cuman blg sudah nasipnya ');
-
-        return $this->tokenizeKata($kata_bersih);
         return $this->kategoriOpini($this->kalimat);
     }
 
@@ -55,17 +52,14 @@ class MiningController extends Controller
 
 		foreach ($this->kelas as $kelas) {
 
-			$nilai[$kelas] = 1; //1
+			$nilai[$kelas] = 1;
 
-			foreach ($tokens as $token) { //pantas
+			foreach ($tokens as $token) {
                 if (strlen($token) > $this->minimalPanjangToken && strlen($token) < $this->maksimalPanjangToken && !in_array($token, $this->kataAbaikan)) { //true,true,true
-                    //pantas
-					if (isset($this->kamus_kata[$token][$kelas])) { //true
-                        $count = $this->kamus_kata[$token][$kelas]; //1
-                        // print_r($count);
+					if (isset($this->kamus_kata[$token][$kelas])) {
+                        $count = $this->kamus_kata[$token][$kelas];
 					} else {
-                        $count = 0; //false
-                        // print_r($count);
+                        $count = 0;
 					}
                     $nilai[$kelas] *= ($count + 1);
 				}
@@ -80,10 +74,6 @@ class MiningController extends Controller
 		foreach ($this->kelas as $kelas) {
             $nilai[$kelas] = round($nilai[$kelas] / $total_nilai, 3);
         }
-
-        // print_r($nilai);
-
-        // exit();
 
 		arsort($nilai);
 
@@ -124,15 +114,15 @@ class MiningController extends Controller
         //     /* yNn */ chr(255) . chr(209) . chr(241);
 
         // $string = strtr($string, $diac, 'AAAAAAaaaaaaOOOOOOooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn');
-        $typos = TypoFixer::pluck('correction', 'typo');
+        // $typos = TypoFixer::pluck('correction', 'typo');
 
         $string = preg_replace('/@\w+[^a-zA-Z0-9]/', ' ', $string);
         $string = preg_replace('/[\x00-\x1F\x7F-\xFF]/', ' ', $string);
         $string = preg_replace('/(\w|\s|.)\\1+/', '$1', $string);
 
-        foreach ($typos as $typo => $correction) {
-            $string = str_replace($typo . ' ', $correction . ' ', $string);
-        }
+        // foreach ($typos as $typo => $correction) {
+        //     $string = str_replace($typo . ' ', $correction . ' ', $string);
+        // }
 
         $hasil = strtolower($string);
 		return $hasil;
@@ -141,7 +131,7 @@ class MiningController extends Controller
     private function loadKamus()
     {
         foreach($this->kelas as $kelas) {
-            $katas = Dictionary::where('kelas', 'positif')->pluck('kata');
+            $katas = Dictionary::where('kelas', $kelas)->pluck('kata');
 
             foreach ($katas as $kata) {
 

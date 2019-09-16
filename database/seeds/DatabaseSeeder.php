@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TypoFixerSeeder::class);
         $this->call(KlasifikasiSeeder::class);
         $this->call(DictionarySeeder::class);
+        $this->call(KomentarSeeder::class);
     }
 }

@@ -16,7 +16,8 @@ class CreateKlasifikasiKomentarsTable extends Migration
         Schema::create('klasifikasi_komentar', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('komentar_id')->nullable();
-            $table->float('nilai_klasifikasi')->nullable();
+            $table->text('preproses_komentar')->nullable();
+            $table->float('nilai_klasifikasi', 12, 5)->nullable();
             $table->string('klasifikasi')->nullable();
             $table->timestamps();
 
