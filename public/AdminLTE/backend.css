@@ -1,0 +1,29 @@
+/*
+CUSTOM CSS FOR LOGIN
+
+BIRU MUDA   = #00A5E3
+BIRU TUA    = #004999
+MERAH       = #E8370D
+PUTIH       = #FFFFFF
+*/
+
+.skin-blue .main-header .logo {
+    background-color: #004999 !important;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #004999 !important;
+}
+
+/* .content-wrapper {
+    background-color: #fff !important;
+} */
+
+.btn-primary {
+    background-color: #E8370D !important;
+    border-color: #E8370D !important;
+}
+
+.checkbox {
+    color: #00A5E3 !important;
+}
