@@ -13,8 +13,21 @@
 <script src="{{ asset('AdminLTE/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 
 <script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $(function () {
       $('#tabel_komentar').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('komentar.data') }}",
+        columns: [
+            { data: 'komentar', name: 'komentar' , orderable: false},
+        ],
+        // "lengthChange": false,
         "language": {
             "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ komentar",
             "paginate": {
@@ -23,8 +36,9 @@
             },
             "sLengthMenu": "Tampilkan _MENU_",
             "emptyTable": "Data Kosong",
+            "infoFiltered": "(disaring dari _MAX_ data)",
             "search": "Pencarian"
-        }
+        },
       })
     })
   </script>
@@ -39,45 +53,12 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-                <table id="tabel_komentar" class="table table-bordered table-hover">
+                <table id="tabel_komentar" class="table table-bordered table-hover striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Komentar (Sebelum di proses)</th>
-                            <th>Komentar (Setelah di proses)</th>
-                            <th>Nilai Klasifikasi</th>
-                            <th>Hasil Klasifikasi</th>
+                            <th>Komentar</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Pak Isran tidak pantas menjadi gubernur</td>
-                            <td>Pak Isran tidak pantas menjadi gubernur</td>
-                            <td>0.32</td>
-                            <td>
-                                <span class="label label-danger">Negatif</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Pak Isran pantas menjadi gubernur</td>
-                            <td>Pak Isran pantas menjadi gubernur</td>
-                            <td>1.56</td>
-                            <td>
-                                <span class="label label-success">Positif</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>ID</th>
-                            <th>Komentar (Sebelum di proses)</th>
-                            <th>Komentar (Setelah di proses)</th>
-                            <th>Nilai Klasifikasi</th>
-                            <th>Hasil Klasifikasi</th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
             <!-- /.box-body -->

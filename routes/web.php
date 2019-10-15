@@ -11,19 +11,21 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('backend.beranda.index');
 });
 
-Route::get('komentar', function () {
-    return view('backend.komentar.index');
+Route::name('komentar.')->prefix('komentar')->group( function () {
+
+    Route::get('', 'KomentarController@index')->name('index');
+    Route::get('data', 'KomentarController@data')->name('data');
 });
 
 Route::get('pengaturan/mining', function () {
     return view('backend.pengaturan.mining.index');
 });
-
-Auth::routes();
 
 // Route::get('/', 'Mining\MiningController@index');
 

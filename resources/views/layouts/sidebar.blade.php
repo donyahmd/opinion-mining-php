@@ -7,9 +7,9 @@
 <li class="{{ \Request::is('komentar') ? 'active' : '' }}">
     <a href="{{ URL::to('komentar') }}">
         <i class="fa fa-comments"></i> <span>Komentar</span>
-        <span class="pull-right-container">
+        {{-- <span class="pull-right-container">
             <small class="label pull-right bg-green" title="16 device connected successfully">1</small>
-        </span>
+        </span> --}}
     </a>
 </li>
 <li class="treeview">

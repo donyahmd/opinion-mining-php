@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DataTables;
 use App\Models\Komentar;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,22 @@ class KomentarController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.komentar.index');
+    }
+
+    /**
+     * Melempar data ke dalam DataTables.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function data()
+    {
+        if (request()->ajax()) {
+            $komentar = Komentar::select('komentar')->get();
+            return Datatables::of($komentar)->make(true);
+        } else {
+            return response('Forbidden', 403);
+        }
     }
 
     /**
