@@ -19,14 +19,20 @@ Route::get('/', function () {
 
 Route::name('komentar.')->prefix('komentar')->group( function () {
 
-    Route::get('', 'KomentarController@index')->name('index');
-    Route::get('data', 'KomentarController@data')->name('data');
+    Route::get('', 'KomentarController@indexKomentar')->name('index_komentar');
+    Route::get('data_komentar', 'KomentarController@dataKomentar')->name('data_komentar');
+
+    Route::get('preproses', 'KomentarController@indexPreprosesKomentar')->name('index_preproses');
+    Route::get('data_preproses', 'KomentarController@dataPreprosesKomentar')->name('data_preproses');
+
+    Route::name('mining.')->prefix('mining')->namespace('Mining')->group( function () {
+
+        Route::post('klasifikasi', 'MiningController@index')->name('klasifikasi');
+    });
 });
 
 Route::get('pengaturan/mining', function () {
     return view('backend.pengaturan.mining.index');
 });
-
-// Route::get('/', 'Mining\MiningController@index');
 
 Route::get('/home', 'HomeController@index')->name('home');

@@ -2,15 +2,21 @@
 
 namespace App\Http\Controllers\Mining;
 
+use DataTables;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use App\Models\Komentar;
+use App\Models\KlasifikasiKomentar;
+
+use App\Models\Mining\TypoFixer;
 use App\Models\Mining\Dictionary;
 use App\Models\Mining\Klasifikasi;
-use App\Models\Mining\TypoFixer;
 
 class MiningController extends Controller
 {
-    private $kalimat = 'Pak Isran pantas menjadi gubernur';
+    private $kalimat = 'pak isran tidak pantas menjadi gubernur';
+    private $komentar = [];
     private $kataAbaikan = array();
     private $kataNegatifPrefix = array();
     private $kamus_kata = array();
@@ -23,7 +29,9 @@ class MiningController extends Controller
     private $jumlahDoc = 0;
     private $klasifikasi;
 
-    public function __construct() {
+    public function __construct()
+    {
+        $this->komentar = Komentar::pluck('komentar', 'id');
         $this->kelas = Klasifikasi::orderBy('kelas', 'DESC')->pluck('kelas');
         $this->klasifikasi = Klasifikasi::orderBy('kelas', 'DESC')->pluck('nilai_probabilitas', 'kelas');
         $this->loadKamus();
@@ -34,7 +42,31 @@ class MiningController extends Controller
 
     public function index()
     {
-        return $this->kategoriOpini($this->kalimat);
+        try {
+            foreach ($this->komentar as $id => $komentar) {
+                $klasifikasi = new KlasifikasiKomentar;
+                $klasifikasi->komentar_id = $id;
+                $klasifikasi->preproses_komentar = $this->_bersihKata($komentar);
+                foreach ($this->kelas as $kelas) {
+                    if ($kelas == 'positif') {
+                        $klasifikasi->nilai_positif = $this->score($komentar)[$kelas];
+                    } elseif ($kelas == 'negatif') {
+                        $klasifikasi->nilai_negatif = $this->score($komentar)[$kelas];
+                    }
+                }
+                if ((count(array_unique($this->score($komentar))) === 1)) {
+                    $klasifikasi->klasifikasi = 'negatif';
+                } else {
+                    $klasifikasi->klasifikasi = $this->kategoriOpini($komentar);
+                }
+                $klasifikasi->save();
+            }
+            KlasifikasiKomentar::where('preproses_komentar', ' ')->delete();
+        } catch (\Throwable $th) {
+            return redirect()->route('komentar.index_preproses')->with('success', 'Komentar gagal di preproses');
+        }
+
+        return redirect()->route('komentar.index_preproses')->with('success', 'Komentar berhasil di preproses');
     }
 
     public function score($kalimat)
@@ -80,7 +112,8 @@ class MiningController extends Controller
 		return $nilai;
     }
 
-    public function kategoriOpini($kalimat) {
+    public function kategoriOpini($kalimat)
+    {
 		$nilai = $this->score($kalimat);
         $klasifikasi = key($nilai);
 
@@ -97,7 +130,8 @@ class MiningController extends Controller
         return $matches;
     }
 
-    private function _bersihKata($string) {
+    private function _bersihKata($string)
+    {
 
 		// $diac =
         //     /* A */ chr(192) . chr(193) . chr(194) . chr(195) . chr(196) . chr(197) .
@@ -150,7 +184,8 @@ class MiningController extends Controller
         }
     }
 
-    public function loadList($type) {
+    public function loadList($type)
+    {
 		$barisKata = array();
 
         $fileKata =  __DIR__ . "/data/data.{$type}.php";
@@ -168,5 +203,5 @@ class MiningController extends Controller
 			array_push($barisKata, $potongKata);
 		}
 		return $barisKata;
-	}
+    }
 }

@@ -17,7 +17,8 @@ class CreateKlasifikasiKomentarsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('komentar_id')->nullable();
             $table->text('preproses_komentar')->nullable();
-            $table->float('nilai_klasifikasi', 12, 5)->nullable();
+            $table->float('nilai_positif', 12, 5)->nullable();
+            $table->float('nilai_negatif', 12, 5)->nullable();
             $table->string('klasifikasi')->nullable();
             $table->timestamps();
 

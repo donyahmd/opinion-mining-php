@@ -5,7 +5,7 @@
     </a>
 </li>
 <li class="{{ \Request::is('komentar') ? 'active' : '' }}">
-    <a href="{{ URL::to('komentar') }}">
+    <a href="{{ route('komentar.index_komentar') }}">
         <i class="fa fa-comments"></i> <span>Komentar</span>
         {{-- <span class="pull-right-container">
             <small class="label pull-right bg-green" title="16 device connected successfully">1</small>
@@ -20,7 +20,7 @@
         </span>
     </a>
     <ul class="treeview-menu">
-        <li><a href="invoice.html"><i class="fa fa-comment"></i> Preprosesing Komentar</a></li>
+        <li><a href="{{ route('komentar.index_preproses') }}"><i class="fa fa-comment"></i> Preprosesing Komentar</a></li>
         <li><a href="blank.html"><i class="fa fa-bar-chart"></i> Klasifikasi</a></li>
     </ul>
 </li>

@@ -23,7 +23,7 @@
       $('#tabel_komentar').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('komentar.data') }}",
+        ajax: "{{ route('komentar.data_komentar') }}",
         columns: [
             { data: 'komentar', name: 'komentar' , orderable: false},
         ],
