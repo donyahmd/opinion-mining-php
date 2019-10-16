@@ -31,7 +31,7 @@ class KomentarController extends Controller
             $preproses_kosong = true;
         }
 
-        return view('backend.klasifikasi_komentar.index', compact('preproses_kosong'));
+        return view('backend.komentar_preproses.index', compact('preproses_kosong'));
     }
 
     public function dataPreprosesKomentar()
