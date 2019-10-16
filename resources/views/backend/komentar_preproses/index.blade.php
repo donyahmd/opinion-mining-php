@@ -1,6 +1,6 @@
 @extends('layouts.app')
-@section('title_page', 'Komentar')
-@section('description_page', 'List komentar')
+@section('title_page', 'Preproses Komentar')
+@section('description_page', 'List preproses komentar')
 
 @push('css')
 <!-- DataTables -->
