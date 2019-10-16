@@ -46,4 +46,33 @@ class KomentarController extends Controller
             return response('Forbidden', 403);
         }
     }
+
+    public function indexKlasifikasiKomentar()
+    {
+        $preproses_kosong = false;
+        if (KlasifikasiKomentar::count() == 0) {
+            $preproses_kosong = true;
+        }
+
+        return view('backend.komentar_klasifikasi.index', compact('preproses_kosong'));
+    }
+
+    public function dataKlasifikasiKomentar()
+    {
+        if (request()->ajax()) {
+            $klasifikasi = KlasifikasiKomentar::select('komentar_id', 'nilai_positif', 'nilai_negatif', 'klasifikasi')->with('komentar')->get();
+            return DataTables::of($klasifikasi)
+            ->addColumn('komentar', function ($klasifikasi) {
+                return $klasifikasi->komentar->komentar;
+            })->editColumn('klasifikasi', function ($klasifikasi) {
+                if ($klasifikasi->klasifikasi == 'positif') {
+                    return '<span class="badge bg-green">Positif</span>';
+                } else {
+                    return '<span class="badge bg-red">Negatif</span>';
+                }
+            })->escapeColumns([])->make(true);
+        } else {
+            return response('Forbidden', 403);
+        }
+    }
 }
