@@ -13,9 +13,7 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('backend.beranda.index');
-});
+Route::get('/', 'HomeController@index');
 
 Route::name('komentar.')->prefix('komentar')->group( function () {
 

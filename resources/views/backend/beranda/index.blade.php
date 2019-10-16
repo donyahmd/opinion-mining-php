@@ -2,11 +2,6 @@
 @section('title_page', 'Beranda')
 @section('description_page', 'Beranda Aplikasi')
 
-@php
-$positif = 500;
-$negatif = 1530;
-@endphp
-
 @push('css')
 <!-- DataTables -->
 <link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
@@ -26,13 +21,13 @@ $negatif = 1530;
         var pieChart       = new Chart(pieChartCanvas);
         var PieData        = [
             {
-                value    : {{ $negatif }},
+                value    : {{ $persentase_negatif }},
                 color    : '#f56954',
                 highlight: '#f56954',
                 label    : 'Negatif'
             },
             {
-                value    : {{ $positif }},
+                value    : {{ $persentase_positif }},
                 color    : '#00a65a',
                 highlight: '#00a65a',
                 label    : 'Positif'
