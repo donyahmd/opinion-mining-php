@@ -45,7 +45,7 @@
 
         <header class="main-header">
             <!-- Logo -->
-            <a href="AdminLTE/index2.html" class="logo">
+            <a href="{{ URL::to('/') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>OMP</b></span>
                 <!-- logo for regular state and mobile devices -->
@@ -96,6 +96,39 @@
 
             <!-- Main content -->
             <section class="content">
+
+                @if ($errors->any())
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('success') }}
+                </div>
+                @elseif(session('info'))
+                <div class="alert alert-info alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('info') }}
+                </div>
+                @elseif(session('danger'))
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('danger') }}
+                </div>
+                @elseif(session('warning'))
+                <div class="alert alert-warning alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('warning') }}
+                </div>
+                @endif
 
                 @yield('content')
 
