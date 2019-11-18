@@ -62,8 +62,8 @@
                 <table id="tabel_komentar" class="table table-bordered table-hover striped">
                     <thead>
                         <tr>
-                            <th>Komentar (Mentah)</th>
-                            <th>Komentar (Preproses)</th>
+                            <th>Komentar (Sebelum dipreprosesing)</th>
+                            <th>Komentar (Sesudah dipreprosesing)</th>
                         </tr>
                     </thead>
                 </table>
