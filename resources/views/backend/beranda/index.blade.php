@@ -69,10 +69,11 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-10">
         <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Hasil Klasifikasi</h3>
+                <h2 style="margin-top:-5px;">Hasil Klasifikasi</h2>
+                <h4>Dapat dilihat pada grafik hasil Klasifikasi dibawah menunjukan bahwa klasifikasi komentar <b>Negatif</b> lebih besar dengan persentase sebesar <b>{{ $persentase_negatif }}%</b> dari klasifikasi komentar <b>Positif</b> yang hanya memiliki persentase sebesar <b>{{ $persentase_positif }}%</b>.</h4>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
