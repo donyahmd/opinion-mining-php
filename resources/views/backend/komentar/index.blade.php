@@ -49,6 +49,21 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="box-header">
+                <h3 class="box-title">Kelola data</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <a href="{{ route('komentar.kelola.tambah') }}" type="button" class="btn btn-success">Tambah Komentar</a>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
                 <h3 class="box-title">Komentar</h3>
             </div>
             <!-- /.box-header -->

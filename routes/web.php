@@ -30,6 +30,11 @@ Route::name('komentar.')->prefix('komentar')->group( function () {
 
         Route::post('klasifikasi', 'MiningController@index')->name('klasifikasi');
     });
+
+    Route::name('kelola.')->prefix('kelola')->group( function () {
+        Route::get('tambah', 'KomentarController@tambahKomentar')->name('tambah');
+        Route::post('simpan', 'KomentarController@simpanKomentar')->name('simpan');
+    });
 });
 
 Route::get('pengaturan/mining', function () {

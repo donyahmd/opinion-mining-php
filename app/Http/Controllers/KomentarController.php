@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\KlasifikasiKomentar;
 use DataTables;
+use Illuminate\Http\Request;
+
+use App\Models\KlasifikasiKomentar;
 use App\Models\Komentar;
 
 class KomentarController extends Controller
@@ -74,5 +76,23 @@ class KomentarController extends Controller
         } else {
             return response('Forbidden', 403);
         }
+    }
+
+    public function tambahKomentar()
+    {
+        return view('backend.komentar.kelola.tambah');
+    }
+
+    public function simpanKomentar(Request $request)
+    {
+        $request->validate([
+            'komentar'  => 'required'
+        ]);
+
+        $komentar = new Komentar();
+        $komentar->komentar = $request->komentar;
+        $komentar->save();
+
+        return redirect()->route('komentar.index_komentar')->with('success', 'Data komentar berhasil disimpan!');
     }
 }
