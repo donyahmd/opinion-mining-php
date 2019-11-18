@@ -22,6 +22,7 @@
     <ul class="treeview-menu">
         <li><a href="{{ route('komentar.index_preproses') }}"><i class="fa fa-comment"></i> Preprosesing Komentar</a></li>
         <li><a href="{{ route('komentar.index_klasifikasi') }}"><i class="fa fa-bar-chart"></i> Klasifikasi</a></li>
+        <li><a href="{{ route('komentar.index_klasifikasi') }}"><i class="fa fa-tag"></i> Confusion Matrix</a></li>
     </ul>
 </li>
 <li class="treeview">
