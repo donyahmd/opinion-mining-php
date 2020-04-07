@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ __('Login Panel') }} | {{ env('APP_NAME', 'Signage Display') }}</title>
+    <title>{{ __('Login Panel') }} | {{ env('APP_NAME', 'Opinion Mining Pro') }}</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -36,14 +36,14 @@
 </head>
 
 <body class="hold-transition login-page">
-    <div class="login-box" style="margin-top:25vh;">
+    <div class="login-box" style="margin-top:25vh; border-radius:10px; box-shadow: 10px 10px;">
         <div class="login-logo">
-            <img class="img-responsive" src="{{ asset('assets/img/logo/IBK.png') }}" alt="Logo Bank Agris">
-            {{-- <a href="{{ route('login') }}"><b>Login</b> Panel</a> --}}
+            {{-- <img class="img-responsive" src="{{ asset('assets/img/logo/IBK.png') }}" alt="Logo Bank Agris"> --}}
+            <a href="{{ route('login') }}" style="color:white;"><b>Opinion Mining</b> Panel</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">{{ __('Sign in to start your session') }}</p>
+            <p class="login-box-msg">{{ __('Silahkan login untuk masuk aplikasi') }}</p>
 
             <form action="{{ route('login') }}" method="post">
                 @csrf
@@ -70,12 +70,6 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
-                        <div class="checkbox icheck">
-                            <label>
-                                <input name="remember" type="checkbox" {{ old('remember') ? 'checked' : '' }}>
-                                {{ __('Remember Me') }}
-                            </label>
-                        </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
@@ -85,9 +79,9 @@
                 </div>
             </form>
 
-            @if (Route::has('password.request'))
+            {{-- @if (Route::has('password.request'))
             <a href="#">{{ __('Forgot Your Password?') }}</a><br>
-            @endif
+            @endif --}}
             {{-- <a href="register.html" class="text-center">{{ __('Register a new membership') }}</a> --}}
 
         </div>
@@ -100,7 +94,7 @@
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
     <!-- iCheck -->
-    <script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
+    {{-- <script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
     <script>
         $(function () {
             $('input').iCheck({
@@ -109,7 +103,7 @@
             increaseArea: '20%' /* optional */
             });
         });
-    </script>
+    </script> --}}
 </body>
 
 </html>
