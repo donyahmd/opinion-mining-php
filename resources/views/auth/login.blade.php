@@ -48,10 +48,10 @@
             <form action="{{ route('login') }}" method="post">
                 @csrf
                 <div class="form-group has-feedback">
-                    <input name="username" type="text" class="form-control" placeholder="{{ __('Username') }}">
+                    <input name="email" type="text" class="form-control" placeholder="{{ __('Email') }}">
                     <span class="glyphicon glyphicon-user form-control-feedback"></span>
 
-                    @error('username')
+                    @error('email')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
