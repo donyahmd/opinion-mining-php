@@ -20,6 +20,7 @@ class CreateKlasifikasiKomentarsTable extends Migration
             $table->float('nilai_positif', 12, 5)->nullable();
             $table->float('nilai_negatif', 12, 5)->nullable();
             $table->string('klasifikasi')->nullable();
+            $table->enum('confusion_matrix', ['TP', 'FP', 'TN', 'FN'])->nullable();
             $table->timestamps();
 
             $table->foreign('komentar_id')
