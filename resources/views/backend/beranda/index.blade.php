@@ -73,11 +73,11 @@
 <div class="row">
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
-        <span class="info-box-icon bg-aqua"><i class="fa fa-comment"></i></span>
+        <span class="info-box-icon bg-aqua"><i class="fa fa-commenting"></i></span>
 
         <div class="info-box-content">
           <span class="info-box-text">Jumlah Komentar</span>
-          <span class="info-box-number">90<small>%</small></span>
+          <span class="info-box-number">{{ $total_komentar }}</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -86,11 +86,11 @@
     <!-- /.col -->
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
-        <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+        <span class="info-box-icon bg-green"><i class="fa fa-plus"></i></span>
 
         <div class="info-box-content">
-          <span class="info-box-text">Likes</span>
-          <span class="info-box-number">41,410</span>
+          <span class="info-box-text">POSITIF</span>
+          <span class="info-box-number">{{ $positif }}</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -103,11 +103,11 @@
 
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
-        <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+        <span class="info-box-icon bg-red"><i class="fa fa-minus"></i></span>
 
         <div class="info-box-content">
-          <span class="info-box-text">Sales</span>
-          <span class="info-box-number">760</span>
+          <span class="info-box-text">NEGATIF</span>
+          <span class="info-box-number">{{ $negatif }}</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -116,11 +116,10 @@
     <!-- /.col -->
     <div class="col-md-3 col-sm-6 col-xs-12">
       <div class="info-box">
-        <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
-
+        <span class="info-box-icon bg-yellow"><i class="fa fa-code-fork"></i></span>
         <div class="info-box-content">
-          <span class="info-box-text">New Members</span>
-          <span class="info-box-number">2,000</span>
+          <span class="info-box-text">Confusion Matrix</span>
+          <span class="info-box-number">coming soon!!!</span>
         </div>
         <!-- /.info-box-content -->
       </div>
