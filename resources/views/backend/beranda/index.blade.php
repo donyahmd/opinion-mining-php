@@ -3,8 +3,12 @@
 @section('description_page', 'Beranda Aplikasi')
 
 @push('css')
-<!-- DataTables -->
-<link rel="stylesheet" href="{{ asset('AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+<style>
+    .paragraf {
+        font-size: 1.2em;
+        text-align: justify;
+    }
+</style>
 @endpush
 
 @push('js')
@@ -130,14 +134,33 @@
   <!-- /.row -->
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="box">
             <div class="box-header">
-                <h2 style="margin-top:-5px;">Hasil Klasifikasi</h2>
-                <h4>Dapat dilihat pada grafik hasil Klasifikasi dibawah menunjukan bahwa klasifikasi komentar <b>Negatif</b> lebih besar dengan persentase sebesar <b>{{ $persentase_negatif }}%</b> dari klasifikasi komentar <b>Positif</b> yang hanya memiliki persentase sebesar <b>{{ $persentase_positif }}%</b>.</h4>
+                <h2>Observasi</h2>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+                <p class="paragraf">
+                    Pada penelitian ini akan menggunakan teknik pengumpulan data secara observasi dikarenakan data yang diambil berasal dari pengguna Instagram. Sehingga peneliti dapat melihat, mengukur, serta merekam sikap dari pengguna/responden Instagram
+                    <br><br>
+                    Data komentar diambil dari akun Instagram <a target="_blank" href="https://www.instagram.com/kabar_samarinda/"><b>@kabar_samarinda</b></a>, pada postingan di <a target="_blank" href="https://www.instagram.com/p/By9rekGFvnl/"><b>tautan ini</b></a> pada tanggal <b>21 Juni 2019</b>. Dimana akun ini mempublikasikan post tentang tanggapan gubernur Kaltim terhadap aktivitas pertambangan di tengah kota Samarinda.
+                    <br><br>
+                    <img class="img-responsive" src="{{ asset('assets/img/isran.png') }}" alt="Gubernur Kalimantan Timur">
+                </p>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+    <div class="col-md-6">
+        <div class="box">
+            <div class="box-header">
+                <h2>Persentase Klasifikasi</h2>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <p class="paragraf">Dapat dilihat pada grafik hasil Klasifikasi dibawah menunjukan bahwa klasifikasi komentar <b>Negatif</b> lebih besar dengan persentase sebesar <b>{{ $persentase_negatif }}%</b> dari klasifikasi komentar <b>Positif</b> yang hanya memiliki persentase sebesar <b>{{ $persentase_positif }}%</b>.</p>
                 <canvas id="pieChart" style="height:500px"></canvas>
             </div>
             <!-- /.box-body -->
