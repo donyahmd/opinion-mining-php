@@ -82,7 +82,6 @@
             {{-- @if (Route::has('password.request'))
             <a href="#">{{ __('Forgot Your Password?') }}</a><br>
             @endif --}}
-            {{-- <a href="register.html" class="text-center">{{ __('Register a new membership') }}</a> --}}
 
         </div>
         <!-- /.login-box-body -->
@@ -93,17 +92,6 @@
     <script src="{{ asset('AdminLTE/bower_components/jquery/dist/jquery.min.js') }}"></script>
     <!-- Bootstrap 3.3.7 -->
     <script src="{{ asset('AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-    <!-- iCheck -->
-    {{-- <script src="{{ asset('AdminLTE/plugins/iCheck/icheck.min.js') }}"></script>
-    <script>
-        $(function () {
-            $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
-            });
-        });
-    </script> --}}
 </body>
 
 </html>
