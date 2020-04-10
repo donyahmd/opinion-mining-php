@@ -32,9 +32,11 @@ class HomeController extends Controller
         $positif = KlasifikasiKomentar::where('klasifikasi', 'positif')->count();
         $negatif = KlasifikasiKomentar::where('klasifikasi', 'negatif')->count();
 
+        $komentar_negatif_teratas = KlasifikasiKomentar::orderBy('nilai_negatif', 'DESC')->limit(10)->get();
+
         $persentase_positif = $total == 0 ? 50 : number_format($positif / $total * 100, 2);
         $persentase_negatif = $total == 0 ? 50 : number_format($negatif / $total * 100, 2);
 
-        return view('backend.beranda.index', compact('total_komentar', 'positif', 'negatif', 'persentase_positif', 'persentase_negatif'));
+        return view('backend.beranda.index', compact('total_komentar', 'positif', 'negatif', 'persentase_positif', 'persentase_negatif', 'komentar_negatif_teratas'));
     }
 }
