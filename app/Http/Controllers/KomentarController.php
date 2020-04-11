@@ -10,7 +10,6 @@ use App\Models\Komentar;
 
 class KomentarController extends Controller
 {
-
     public function indexKomentar()
     {
         return view('backend.komentar.index');
@@ -89,7 +88,7 @@ class KomentarController extends Controller
             'komentar'  => 'required'
         ]);
 
-        $komentar = new Komentar();
+        $komentar           = new Komentar();
         $komentar->komentar = $request->komentar;
         $komentar->save();
 
@@ -110,9 +109,7 @@ class KomentarController extends Controller
 
         $confusion_matrix = $this->confusionMatrix($tn, $fp, $fn, $tp);
 
-        return $confusion_matrix;
-
-        return view('backend.confusion_matrix.index', compact('confusion_matrix_kosong'));
+        return view('backend.confusion_matrix.index', compact('confusion_matrix', 'confusion_matrix_kosong'));
     }
 
     public function dataConfusionMatrix()
@@ -146,11 +143,11 @@ class KomentarController extends Controller
 
     public function confusionMatrix($tn, $fp, $fn, $tp)
     {
-        $presisi = ($tn / ($tn + $fn)) * 100;
-        $recall = ($tn / ($tn + $fp)) * 100;
-        $akurasi = (($tn + $tp) / ($tn + $tp + $fn + $fp)) * 100;
+        $presisi    = ($tn / ($tn + $fn)) * 100;
+        $recall     = ($tn / ($tn + $fp)) * 100;
+        $akurasi    = (($tn + $tp) / ($tn + $tp + $fn + $fp)) * 100;
 
-        $f1_score = ((2 * ($recall * $presisi)) / ($recall + $presisi));
+        $f1_score   = ((2 * ($recall * $presisi)) / ($recall + $presisi));
 
         return response()->json([
             'presisi'   =>  $presisi,
