@@ -67,9 +67,9 @@ class KomentarController extends Controller
                 return $klasifikasi->komentar->komentar;
             })->editColumn('klasifikasi', function ($klasifikasi) {
                 if ($klasifikasi->klasifikasi == 'positif') {
-                    return '<span class="badge bg-green">Positif</span>';
+                    return '<span class="badge bg-green">POSITIF</span>';
                 } else {
-                    return '<span class="badge bg-red">Negatif</span>';
+                    return '<span class="badge bg-red">NEGATIF</span>';
                 }
             })->escapeColumns([])->make(true);
         } else {
@@ -121,9 +121,9 @@ class KomentarController extends Controller
                 return $klasifikasi->komentar->komentar;
             })->editColumn('klasifikasi', function ($klasifikasi) {
                 if ($klasifikasi->klasifikasi == 'positif') {
-                    return '<span class="badge bg-green">Positif</span>';
+                    return '<span class="badge bg-green">POSITIF</span>';
                 } else {
-                    return '<span class="badge bg-red">Negatif</span>';
+                    return '<span class="badge bg-red">NEGATIF</span>';
                 }
             })->editColumn('confusion_matrix', function ($klasifikasi) {
                 if ($klasifikasi->klasifikasi == 'positif' && $klasifikasi->confusion_matrix == 'TP') {
@@ -149,11 +149,11 @@ class KomentarController extends Controller
 
         $f1_score   = ((2 * ($recall * $presisi)) / ($recall + $presisi));
 
-        return response()->json([
+        return [
             'presisi'   =>  $presisi,
             'recall'    =>  $recall,
             'akurasi'   =>  $akurasi,
             'f1_score'  =>  $f1_score,
-        ]);
+        ];
     }
 }

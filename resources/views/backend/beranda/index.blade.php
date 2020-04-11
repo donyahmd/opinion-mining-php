@@ -90,7 +90,7 @@
 
         <div class="info-box-content">
           <span class="info-box-text">Komentar Positif</span>
-          <span class="info-box-number">{{ $positif }}</span>
+          <span class="info-box-number">{{ round($persentase_positif, 2) }} %</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -107,7 +107,7 @@
 
         <div class="info-box-content">
           <span class="info-box-text">Komentar Negatif</span>
-          <span class="info-box-number">{{ $negatif }}</span>
+          <span class="info-box-number">{{ round($persentase_negatif, 2) }} %</span>
         </div>
         <!-- /.info-box-content -->
       </div>
@@ -119,7 +119,7 @@
         <span class="info-box-icon bg-yellow"><i class="fa fa-code-fork"></i></span>
         <div class="info-box-content">
           <span class="info-box-text">Confusion Matrix</span>
-          <span class="info-box-number">coming soon!!!</span>
+          <span class="info-box-number">{{ round($confusion_matrix['akurasi'], 2) }} %</span>
         </div>
         <!-- /.info-box-content -->
       </div>

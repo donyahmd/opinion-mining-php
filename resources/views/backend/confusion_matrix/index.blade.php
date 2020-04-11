@@ -28,7 +28,7 @@
                 columns: [
                     { data: 'komentar', name: 'komentar' , orderable: false},
                     { data: 'klasifikasi', name: 'klasifikasi' , orderable: true},
-                    { data: 'confusion_matrix', name: 'confusion_matrix' , orderable: false},
+                    { data: 'confusion_matrix', name: 'confusion_matrix' , orderable: true},
                 ],
                 // "lengthChange": false,
                 "language": {
@@ -51,6 +51,66 @@
 @endpush
 
 @section('content')
+<!-- Info boxes -->
+<div class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-aqua"><i class="fa fa-bolt"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Akurasi</span>
+          <span class="info-box-number">{{ round($confusion_matrix['akurasi'], 2) }} %</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-green"><i class="fa fa-leaf"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Presisi</span>
+          <span class="info-box-number">{{ round($confusion_matrix['presisi'], 2) }} %</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+
+    <!-- fix for small devices only -->
+    <div class="clearfix visible-sm-block"></div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-red"><i class="fa fa-quote-right"></i></span>
+
+        <div class="info-box-content">
+          <span class="info-box-text">Recall</span>
+          <span class="info-box-number">{{ round($confusion_matrix['recall'], 2) }} %</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-3 col-sm-6 col-xs-12">
+      <div class="info-box">
+        <span class="info-box-icon bg-yellow"><i class="fa fa-tachometer"></i></span>
+        <div class="info-box-content">
+          <span class="info-box-text">F1 Score</span>
+          <span class="info-box-number">{{ round($confusion_matrix['f1_score'], 2) }} %</span>
+        </div>
+        <!-- /.info-box-content -->
+      </div>
+      <!-- /.info-box -->
+    </div>
+    <!-- /.col -->
+</div>
+<!-- /.row -->
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
