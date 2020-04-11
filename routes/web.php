@@ -28,6 +28,9 @@ Route::middleware(['auth'])->group( function () {
         Route::get('klasifikasi', 'KomentarController@indexKlasifikasiKomentar')->name('index_klasifikasi');
         Route::get('data_klasifikasi', 'KomentarController@dataKlasifikasiKomentar')->name('data_klasifikasi');
 
+        Route::get('confusion_matrix', 'KomentarController@indexConfusionMatrix')->name('index_confusion_matrix');
+        Route::get('data_confusion_matrix', 'KomentarController@dataConfusionMatrix')->name('data_confusion_matrix');
+
         Route::name('mining.')->prefix('mining')->namespace('Mining')->group( function () {
 
             Route::post('klasifikasi', 'MiningController@index')->name('klasifikasi');
