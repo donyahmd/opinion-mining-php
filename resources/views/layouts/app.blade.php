@@ -90,7 +90,7 @@
             <section class="content-header">
                 <h1>
                     @yield('title_page', __('title.page'))
-                    <small>@yield('description_page', _('description.page'))</small>
+                    <small>@yield('description_page', __('description.page'))</small>
                 </h1>
             </section>
 
