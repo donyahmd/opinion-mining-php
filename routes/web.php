@@ -17,6 +17,8 @@ Route::middleware(['auth'])->group( function () {
 
     Route::get('/', 'HomeController@index');
 
+    Route::get('tentang', 'TentangController@indexTentang')->name('tentang');
+
     Route::name('komentar.')->prefix('komentar')->group( function () {
 
         Route::get('', 'KomentarController@indexKomentar')->name('index_komentar');

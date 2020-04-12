@@ -25,7 +25,7 @@
         <li><a href="{{ route('komentar.index_confusion_matrix') }}"><i class="fa fa-tag"></i> Confusion Matrix</a></li>
     </ul>
 </li>
-<li><a href="invoice.html"><i class="fa fa-info"></i> Tentang Aplikasi</a></li>
+<li><a href="{{ route('tentang') }}"><i class="fa fa-info"></i> Tentang Aplikasi</a></li>
 {{-- <li class="treeview">
     <a href="{{ URL::to('/') }}">
         <i class="fa fa-gear"></i> <span>Pengaturan</span>
