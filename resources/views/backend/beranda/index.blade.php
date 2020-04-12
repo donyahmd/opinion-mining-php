@@ -208,7 +208,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <p class="paragraf">Dapat dilihat pada grafik hasil Klasifikasi dibawah menunjukan bahwa klasifikasi komentar <b>Negatif</b> lebih besar dengan persentase sebesar <b>{{ $persentase_negatif }}%</b> dari klasifikasi komentar <b>Positif</b> yang hanya memiliki persentase sebesar <b>{{ $persentase_positif }}%</b>.</p>
+            <p class="paragraf">Untuk Pengukuran perhitungan akurasi menggunakan metode <b><i>Confusion Matrix</i></b>. Didapatkan bahwa <b>akurasi</b> algoritma adalah sebesar <b>{{ round($confusion_matrix['akurasi'], 2) }} %</b>. </p>
         </div>
         <!-- /.box-body -->
     </div>
